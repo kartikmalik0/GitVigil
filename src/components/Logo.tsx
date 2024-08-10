@@ -2,7 +2,7 @@
 import { Rubik_Moonrocks } from "next/font/google"
 
 const inter = Rubik_Moonrocks({
-    subsets:["cyrillic"],
+    subsets: ["cyrillic"],
     weight: ["400"]
 })
 
@@ -10,7 +10,10 @@ const inter = Rubik_Moonrocks({
 const Logo = () => {
     return (
         <h1 className={`${inter.className} text-2xl`}>
-            Git Vigil
+            Git
+            <span className="text-themeColor">
+                Vigil
+            </span>
         </h1>
     )
 }

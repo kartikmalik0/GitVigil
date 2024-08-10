@@ -20,6 +20,8 @@ const config = {
         extend: {
             colors: {
                 themeColor: "#FFAE36",
+                subHeading: "#79797B",
+                subLighter:"#B5B5B6",
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
