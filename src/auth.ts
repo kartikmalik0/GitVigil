@@ -10,15 +10,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     pages: {
         signIn: "/login",
     },
-    // cookies: {
-    //     csrfToken: {
-    //       name: "next-auth.csrf-token",
-    //       options: {
-    //         httpOnly: true,
-    //         sameSite: "none",
-    //         path: "/",
-    //         secure: false,
-    //       },
-    //     },
-    //   },
+    callbacks: {
+        async session({ session, token, user }) {
+            const getToken = await prisma.account.findFirst({
+                where: {
+                    userId: user.id,
+                },
+            });
+
+            let accessToken: string | null = null;
+            if (getToken) {
+                accessToken = getToken.access_token!;
+            }
+
+            session.user.token = accessToken;
+            return session;
+        },
+    },
 });
