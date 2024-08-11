@@ -4,6 +4,8 @@ import "./globals.css";
 import Sitenav from "@/components/Sitenav";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/providers/ThemeProvider";
+
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,9 +29,16 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Sitenav />
-        {children}
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Sitenav />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
