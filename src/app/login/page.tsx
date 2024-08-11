@@ -6,7 +6,9 @@ import LoginImage from "@/assets/images/login.png"
 import Image from 'next/image'
 import { Github } from 'lucide-react'
 import Link from 'next/link'
+// import { signIn } from '@/auth'
 import { signIn } from 'next-auth/react'
+
 
 const Login = () => {
     return (
@@ -22,13 +24,19 @@ const Login = () => {
                     </p>
                 </div>
                 <div className='flex w-full flex-col gap-3 items-center '>
+                    {/* <form  action={async () => {
+                        "use server"
+                        await signIn()
+                    }}> */}
                     <Button
-                        onClick={() => signIn("github")}
-                        size={"lg"}
+                        onClick={() => signIn("github", {
+                            callbackUrl: "/"
+                        })}
                         className='max-w-[22rem] w-full flex gap-2 items-center'>
                         <Github />
                         Login With GitHub
                     </Button>
+                    {/* </form> */}
                     <div className='flex w-full  max-w-[22rem] items-center justify-between'>
                         <div className='h-[1px] w-[80%] bg-subLighter' />
                         <span className='mx-3'>
@@ -44,8 +52,6 @@ const Login = () => {
                     >
                         Create an Account
                     </Link>
-
-
                 </div>
             </div>
             <div className='hidden md:block'>
@@ -55,6 +61,7 @@ const Login = () => {
                     alt='Login Page Image'
                     width={557}
                     height={588}
+                    priority
                 />
             </div>
         </MaxWidhtWrapper>
