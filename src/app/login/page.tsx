@@ -15,7 +15,7 @@ const Login = () => {
         <MaxWidhtWrapper className='flex items-center justify-around'>
             <div className='space-y-16'>
                 <div className='text-center space-y-3'>
-                    <div className=' text-4xl md:text-5xl font-bold '>
+                    <div >
                         <h1 className='text-themeColor'>Welcome to</h1>
                         <h1>Git Streak Maintianer</h1>
                     </div>
