@@ -1,11 +1,15 @@
+import MaxWidhtWrapper from '@/components/MaxWidthWrapper'
 import React from 'react'
 
 const Dashboard = () => {
     return (
-        <div>
-            Dashboard
-        </div>
+        <MaxWidhtWrapper>
+            
+        </MaxWidhtWrapper>
     )
 }
 
 export default Dashboard
+
+
+
