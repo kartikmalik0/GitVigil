@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner"
+import QueryProvider from "@/providers/QueryProvider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -35,10 +36,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Sitenav />
-          {children}
-          <Footer />
-          <Toaster />
+          <QueryProvider>
+            <Sitenav />
+            {children}
+            <Footer />
+            <Toaster />
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>
