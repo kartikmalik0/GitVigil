@@ -1,7 +1,7 @@
 import React from 'react'
 import Logo from './Logo'
 import { ModeToggle } from './ThemeToggle'
-import AddToken from './dashboard/secreate-button/page'
+import AddToken from './dashboard/add-token/page'
 
 const Sitenav = () => {
   return (
