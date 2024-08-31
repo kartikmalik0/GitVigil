@@ -5,7 +5,7 @@ import Sitenav from "@/components/Sitenav";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-
+import { Toaster } from "@/components/ui/sonner"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -38,6 +38,7 @@ export default function RootLayout({
           <Sitenav />
           {children}
           <Footer />
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

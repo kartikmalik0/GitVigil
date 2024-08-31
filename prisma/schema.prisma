@@ -21,6 +21,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  accessToken   String?
   // Optional for WebAuthn support 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
