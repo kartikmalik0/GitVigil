@@ -25,8 +25,8 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
-import { upsertGithubToken } from "@/actions/add-token"
 import { useState } from "react"
+import { upsertGithubToken } from "@/actions/add-token"
 
 const formSchema = z.object({
     token: z.string().min(10, "Token is required")
