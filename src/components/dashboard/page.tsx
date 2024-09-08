@@ -3,11 +3,12 @@ import { CommitGraph } from "./commit-graph/page"
 import TodayContribution from "./current-day-contribution/TodayContribution"
 import Profile from "./profile/page"
 import { TodayContributionSkelton } from "../loading-skelton/TodayStreak"
+import ProfileSkelton from "../loading-skelton/ProfileSkelton"
 
-const DashboardLayout = () => {
+const DashboardLayout = async () => {
     return (
         <section className="mt-4 space-y-4">
-            <Suspense fallback={<TodayContributionSkelton />}>
+            <Suspense fallback={<ProfileSkelton />}>
                 <Profile />
             </Suspense>
             <CommitGraph />

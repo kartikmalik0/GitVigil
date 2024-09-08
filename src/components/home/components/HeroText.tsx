@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import PulsatingButton from "@/components/ui/pulse-button"
+import Link from "next/link"
 
 const HeroText = () => {
   return (
@@ -14,9 +15,11 @@ const HeroText = () => {
         </p>
       </div>
       <div className="flex gap-6">
-        <PulsatingButton pulseColor="#FFAE36">
-          Get Started For Free
-        </PulsatingButton>
+        <Link href={"/dashboard"}>
+          <PulsatingButton pulseColor="#FFAE36">
+            Get Started For Free
+          </PulsatingButton>
+        </Link>
         <Button variant={"outline"}>
           Demo
         </Button>

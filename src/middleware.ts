@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { auth as middleware } from "@/auth";
 
 export default middleware((req) => {
-  const allowedPaths = ["/", "/login", "/api/auth/callback/github"];
+  const allowedPaths = ["/", "/login", "http://localhost:3000/api/auth/session"];
   const { pathname, origin } = req.nextUrl;
 
   // Check if the request is for a static file

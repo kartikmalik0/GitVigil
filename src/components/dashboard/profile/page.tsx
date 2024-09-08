@@ -1,5 +1,3 @@
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
 import {
     Card,
     CardContent,
@@ -14,7 +12,6 @@ import { getUser } from '@/actions/get-user';
 const Profile = async () => {
 
     const { data } = await getUser()
-    console.log(data)
     // const { data: user, isLoading } = useQuery({
     //     queryKey: ["fetchUser"],
     //     queryFn: getUser
