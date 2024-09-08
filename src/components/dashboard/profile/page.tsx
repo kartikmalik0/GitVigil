@@ -10,23 +10,10 @@ import { Button } from '@/components/ui/button';
 import { GitCommitHorizontal, Star, Loader2 } from 'lucide-react';
 import UserDetails from './UserDetails';
 import { createGitStreakRepo } from '@/actions/create-streak';
+import MaintainStreakButton from '@/components/MaintainStreakButton';
 
 const Profile = () => {
-    const mutation = useMutation({
-        mutationFn: createGitStreakRepo,
-        onSuccess: (data) => {
-            console.log('Streak maintained successfully:', data);
-            // You can add a toast notification here
-        },
-        onError: (error) => {
-            console.error('Error maintaining streak:', error);
-            // You can add an error toast notification here
-        },
-    });
 
-    const handleMaintainStreak = () => {
-        mutation.mutate();
-    };
 
     return (
         <Card className='p-1 md:p-6'>
@@ -39,18 +26,7 @@ const Profile = () => {
                     <UserDetails />
                 </div>
                 <div className='md:flex hidden flex-col md:flex-row gap-2'>
-                    <Button 
-                        className='gap-2' 
-                        onClick={handleMaintainStreak}
-                        disabled={mutation.isPending}
-                    >
-                        {mutation.isPending ? (
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        ) : (
-                            <GitCommitHorizontal />
-                        )}
-                        {mutation.isPending ? 'Maintaining...' : 'Maintain Streak'}
-                    </Button>
+                    <MaintainStreakButton />
                     <Button variant="outline" className='gap-2'>
                         <Star />
                         Star on Github

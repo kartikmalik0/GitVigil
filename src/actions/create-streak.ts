@@ -76,7 +76,7 @@ export async function createGitStreakRepo() {
             });
         }
 
-        console.log(`File ${fileName} updated in ${repoName} with message: ${commitMessage}`);
+        // console.log(`File ${fileName} updated in ${repoName} with message: ${commitMessage}`);
 
         revalidatePath("/dashboard");
         return {
