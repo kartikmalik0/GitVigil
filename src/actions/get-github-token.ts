@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 export async function getGitHubToken() {
     try {
         const session = await auth();
-        console.log(session);
+        
         if (!session || !session.user || !session.user.id) {
             throw new Error("Unauthorized");
         }

@@ -1,19 +1,23 @@
 "use client"
 import React from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import {
     Card,
     CardContent,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { GitCommitHorizontal, Star, Loader2 } from 'lucide-react';
+import { Star } from 'lucide-react';
 import UserDetails from './UserDetails';
 import { createGitStreakRepo } from '@/actions/create-streak';
 import MaintainStreakButton from '@/components/MaintainStreakButton';
+import { getUser } from '@/actions/get-user';
 
 const Profile = () => {
-
+    const { data: user, isLoading } = useQuery({
+        queryKey: ["fetchUser"],
+        queryFn: getUser
+    })
 
     return (
         <Card className='p-1 md:p-6'>
@@ -23,7 +27,7 @@ const Profile = () => {
                         <AvatarImage src="https://github.com/shadcn.png" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <UserDetails />
+                    <UserDetails user={user} />
                 </div>
                 <div className='md:flex hidden flex-col md:flex-row gap-2'>
                     <MaintainStreakButton />

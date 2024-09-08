@@ -1,6 +1,8 @@
+import { Suspense } from "react"
 import { CommitGraph } from "./commit-graph/page"
 import TodayContribution from "./current-day-contribution/TodayContribution"
 import Profile from "./profile/page"
+import { TodayContributionSkelton } from "../loading-skelton/TodayStreak"
 
 const DashboardLayout = () => {
     return (
@@ -8,7 +10,9 @@ const DashboardLayout = () => {
             <Profile />
             <CommitGraph />
             <div>
-                <TodayContribution />
+                <Suspense fallback={<TodayContributionSkelton/>}>
+                    <TodayContribution />
+                </Suspense>
             </div>
         </section>
     )
