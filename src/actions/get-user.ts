@@ -11,6 +11,7 @@ export async function getUser() {
 
         const octokit: Octokit = new Octokit({ auth: token });
         const user = await octokit.rest.users.getAuthenticated();
+        console.log(user)
         return user;
     } catch (error) {
         throw new Error("Unbale to fetch User");

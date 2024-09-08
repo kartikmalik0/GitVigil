@@ -27,12 +27,15 @@ import {
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { useState } from "react"
 import { upsertGithubToken } from "@/actions/add-token"
+import { useSession } from "next-auth/react"
 
 const formSchema = z.object({
     token: z.string().min(10, "Token is required")
 })
 
 export default function AddToken() {
+
+
     const [isOpen, setIsOpen] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -41,6 +44,11 @@ export default function AddToken() {
         },
     })
 
+    const session = useSession()
+    if (session.status == "unauthenticated") {
+        return null
+    }
+    
     const { isSubmitting } = form.formState
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
@@ -54,6 +62,7 @@ export default function AddToken() {
             toast.error("Error in Upserting Token")
         }
     }
+
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

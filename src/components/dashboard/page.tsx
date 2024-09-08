@@ -7,10 +7,12 @@ import { TodayContributionSkelton } from "../loading-skelton/TodayStreak"
 const DashboardLayout = () => {
     return (
         <section className="mt-4 space-y-4">
-            <Profile />
+            <Suspense fallback={<TodayContributionSkelton />}>
+                <Profile />
+            </Suspense>
             <CommitGraph />
             <div>
-                <Suspense fallback={<TodayContributionSkelton/>}>
+                <Suspense fallback={<TodayContributionSkelton />}>
                     <TodayContribution />
                 </Suspense>
             </div>

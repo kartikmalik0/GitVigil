@@ -28,77 +28,78 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function CommitGraph() {
-    const { data: commitData, isLoading, error } = useQuery({
-        queryKey: ["commitData"],
-        queryFn: async () => await getCommitData(),
-    });
-    // const commitData = [
+    // const { data: commitData, isLoading, error } = useQuery({
+    //     queryKey: ["commitData"],
+    //     queryFn: async () => await getCommitData(),
+    // });
+    const isLoading = false
+    const commitData = [
 
-    //     { date: '2024-08-08', count: 5 },
+        { date: '2024-08-08', count: 5 },
 
-    //     { date: '2024-08-09', count: 5 },
+        { date: '2024-08-09', count: 5 },
 
-    //     { date: '2024-08-10', count: 3 },
+        { date: '2024-08-10', count: 3 },
 
-    //     { date: '2024-08-11', count: 3 },
+        { date: '2024-08-11', count: 3 },
 
-    //     { date: '2024-08-12', count: 12 },
+        { date: '2024-08-12', count: 12 },
 
-    //     { date: '2024-08-13', count: 6 },
+        { date: '2024-08-13', count: 6 },
 
-    //     { date: '2024-08-14', count: 9 },
+        { date: '2024-08-14', count: 9 },
 
-    //     { date: '2024-08-15', count: 10 },
+        { date: '2024-08-15', count: 10 },
 
-    //     { date: '2024-08-16', count: 11 },
+        { date: '2024-08-16', count: 11 },
 
-    //     { date: '2024-08-17', count: 6 },
+        { date: '2024-08-17', count: 6 },
 
-    //     { date: '2024-08-18', count: 12 },
+        { date: '2024-08-18', count: 12 },
 
-    //     { date: '2024-08-19', count: 7 },
+        { date: '2024-08-19', count: 7 },
 
-    //     { date: '2024-08-20', count: 6 },
+        { date: '2024-08-20', count: 6 },
 
-    //     { date: '2024-08-21', count: 3 },
+        { date: '2024-08-21', count: 3 },
 
-    //     { date: '2024-08-22', count: 8 },
+        { date: '2024-08-22', count: 8 },
 
-    //     { date: '2024-08-23', count: 9 },
+        { date: '2024-08-23', count: 9 },
 
-    //     { date: '2024-08-24', count: 8 },
+        { date: '2024-08-24', count: 8 },
 
-    //     { date: '2024-08-25', count: 4 },
+        { date: '2024-08-25', count: 4 },
 
-    //     { date: '2024-08-26', count: 5 },
+        { date: '2024-08-26', count: 5 },
 
-    //     { date: '2024-08-27', count: 0 },
+        { date: '2024-08-27', count: 0 },
 
-    //     { date: '2024-08-28', count: 0 },
+        { date: '2024-08-28', count: 0 },
 
-    //     { date: '2024-08-29', count: 1 },
+        { date: '2024-08-29', count: 1 },
 
-    //     { date: '2024-08-30', count: 13 },
+        { date: '2024-08-30', count: 13 },
 
-    //     { date: '2024-08-31', count: 5 },
+        { date: '2024-08-31', count: 5 },
 
-    //     { date: '2024-09-01', count: 5 },
+        { date: '2024-09-01', count: 5 },
 
-    //     { date: '2024-09-02', count: 1 },
+        { date: '2024-09-02', count: 1 },
 
-    //     { date: '2024-09-03', count: 1 },
+        { date: '2024-09-03', count: 1 },
 
-    //     { date: '2024-09-04', count: 1 },
+        { date: '2024-09-04', count: 1 },
 
-    //     { date: '2024-09-05', count: 1 },
+        { date: '2024-09-05', count: 1 },
 
-    //     { date: '2024-09-06', count: 0 },
+        { date: '2024-09-06', count: 0 },
 
-    //     { date: '2024-09-07', count: 1 }
+        { date: '2024-09-07', count: 1 }
 
-    // ]
+    ]
 
-    if (error) return <div>Error: {error.message}</div>;
+    // if (error) return <div>Error: {error.message}</div>;
 
     const trendPercentage = calculateTrend(commitData);
 
