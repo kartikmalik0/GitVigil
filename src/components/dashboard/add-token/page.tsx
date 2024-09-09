@@ -25,18 +25,28 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { upsertGithubToken } from "@/actions/add-token"
 import { useSession } from "next-auth/react"
+import { useQuery } from "@tanstack/react-query"
+import { getUser } from "@/actions/get-user"
+import { getGitHubToken } from "@/actions/get-github-token"
 
 const formSchema = z.object({
     token: z.string().min(10, "Token is required")
 })
 
-export default function AddToken() {
-
-
+export default function AddToken({ token }: { token: string }) {
     const [isOpen, setIsOpen] = useState(false)
+
+
+
+    useEffect(() => {
+        if (token === "NO_TOKEN") {
+            setIsOpen(true)
+        }
+    }, [token])
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -48,7 +58,7 @@ export default function AddToken() {
     if (session.status == "unauthenticated") {
         return null
     }
-    
+
     const { isSubmitting } = form.formState
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
@@ -64,6 +74,8 @@ export default function AddToken() {
     }
 
 
+
+
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <TooltipProvider>
@@ -72,20 +84,22 @@ export default function AddToken() {
                         <DialogTrigger asChild>
                             <Button className="gap-1">
                                 <GlobeLock className="h-5 w-5" />
-                                Add Token
+                                {token === "NO_TOKEN" ? "Add Token" : "Update Token"}
                             </Button>
                         </DialogTrigger>
                     </TooltipTrigger>
                     <TooltipContent>
-                        <p>Add Your Github Personal Access Token</p>
+                        <p>{token === "NO_TOKEN" ? "Add Your Github Personal Access Token" : "Update Your Github Personal Access Token"}</p>
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
-                    <DialogTitle>Add GitHub Token</DialogTitle>
+                    <DialogTitle>{token === "NO_TOKEN" ? "Add GitHub Token" : "Update GitHub Token"}</DialogTitle>
                     <DialogDescription>
-                        Enter your GitHub Personal Access Token to continue.
+                        {token === "NO_TOKEN"
+                            ? "Enter your GitHub Personal Access Token to continue."
+                            : "Update your GitHub Personal Access Token."}
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
@@ -104,10 +118,14 @@ export default function AddToken() {
                             )}
                         />
                         <DialogFooter className="sm:justify-end">
-                            <DialogClose asChild>
-                                <Button type="button" variant="secondary">Cancel</Button>
-                            </DialogClose>
-                            <Button type="submit" disabled={isSubmitting}>Add</Button>
+                            {token !== "NO_TOKEN" && (
+                                <Button type="button" variant="secondary" onClick={() => setIsOpen(false)}>
+                                    Cancel
+                                </Button>
+                            )}
+                            <Button type="submit" disabled={isSubmitting}>
+                                {token === "NO_TOKEN" ? "Add" : "Update"}
+                            </Button>
                         </DialogFooter>
                     </form>
                 </Form>

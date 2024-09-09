@@ -1,9 +1,9 @@
-import { auth } from "@/auth";
+export const dynamic = 'force-dynamic'
+
 import HomePage from "@/components/home/HomePage";
 import MaxWidhtWrapper from "@/components/MaxWidthWrapper";
-import { Octokit } from "octokit";
 
-export default async function Home() {
+export default function Home() {
 
   return (
     <MaxWidhtWrapper>

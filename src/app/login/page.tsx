@@ -1,4 +1,6 @@
 "use client"
+export const dynamic = 'force-dynamic'
+
 import MaxWidhtWrapper from '@/components/MaxWidthWrapper'
 import { Button, buttonVariants } from '@/components/ui/button'
 import React from 'react'
