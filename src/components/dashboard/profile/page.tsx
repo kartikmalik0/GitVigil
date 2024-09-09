@@ -8,6 +8,7 @@ import { Star } from 'lucide-react';
 import UserDetails from './UserDetails';
 import MaintainStreakButton from '@/components/MaintainStreakButton';
 import { getUser } from '@/actions/get-user';
+import Link from "next/link";
 
 const Profile = async () => {
 
@@ -23,20 +24,19 @@ const Profile = async () => {
         <Card className='p-1 md:p-6'>
             <CardContent className='pt-6 flex items-center justify-between'>
                 <div className='flex items-center'>
-
                     <Avatar className="h-16 w-16 md:h-28 md:w-28">
                         <AvatarImage src={data.avatar_url || "https://github.com/shadcn.png"} />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <UserDetails user={data} />
-
-
                 </div>
                 <div className='md:flex hidden flex-col md:flex-row gap-2'>
                     <MaintainStreakButton />
-                    <Button variant="outline" className='gap-2'>
-                        <Star />
-                        Star on Github
+                    <Button variant="outline" size={"lg"} className='gap-2' asChild>
+                        <Link href={"https://github.com/kartikmalik0/GitVigil.git"} target="_blank">
+                            <Star />
+                            Star on Github
+                        </Link>
                     </Button>
                 </div>
             </CardContent>

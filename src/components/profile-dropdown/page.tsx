@@ -34,7 +34,7 @@ export default function ProfileDropDown() {
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => signOut()} className="text-red-500 flex justify-center">
+                        <DropdownMenuItem onClick={() => signOut()} className="text-red-500 flex cursor-pointer justify-center">
                             <span>Logout</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
