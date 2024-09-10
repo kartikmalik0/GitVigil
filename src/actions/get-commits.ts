@@ -1,73 +1,67 @@
-// File: app/actions/githubCommits.ts
 "use server";
 
 import { Octokit } from "@octokit/rest";
 import { getGitHubToken } from "./get-github-token";
 import { decryptToken } from "@/lib/token-encryption";
 
+async function fetchCommitsForRepo(octokit: Octokit, owner: string, repo: string, since: string) {
+  try {
+    const commits = await octokit.paginate(octokit.repos.listCommits, {
+      owner,
+      repo,
+      per_page: 100,
+      since,
+      headers: {
+        "If-None-Match": "" // Bypass GitHub's cache
+      }
+    });
+
+    return commits.map((commit) => ({
+      date: commit.commit.author?.date,
+    }));
+  } catch (error) {
+    console.error(`Error fetching commits for ${repo}:`, error);
+    return [];
+  }
+}
+
 async function fetchAllCommits(octokit: Octokit) {
   const user = await octokit.users.getAuthenticated();
-  const repos = await octokit.paginate(
-    octokit.repos.listForAuthenticatedUser,
-    {
-      per_page: 100,
-    }
+  const repos = await octokit.paginate(octokit.repos.listForAuthenticatedUser, {
+    per_page: 100,
+  });
+
+  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+
+  const commitPromises = repos.map(repo => 
+    fetchCommitsForRepo(octokit, user.data.login, repo.name, thirtyDaysAgo)
   );
 
-  let allCommits: any[] = [];
-
-  for (const repo of repos) {
-    try {
-      const commits = await octokit.paginate(octokit.repos.listCommits, {
-        owner: user.data.login,
-        repo: repo.name,
-        per_page: 100,
-        since: new Date(
-          Date.now() - 30 * 24 * 60 * 60 * 1000
-        ).toISOString(), // Last 30 days
-      });
-
-      allCommits = allCommits.concat(
-        commits.map((commit) => ({
-        //   sha: commit.sha,
-        //   message: commit.commit.message,
-          date: commit.commit.author?.date,
-        //   author: commit.commit.author?.name,
-        //   repo: repo.name,
-        }))
-      );
-    } catch (error) {
-      console.error(`Error fetching commits for ${repo.name}:`, error);
-    }
-  }
-
-  return allCommits;
+  const allCommits = await Promise.all(commitPromises);
+  return allCommits.flat();
 }
 
 function processCommitsByDate(commits: any[]) {
-  const commitsByDate: { [key: string]: number } = {};
-
-  // Get the date 30 days ago
-  const thirtyDaysAgo = new Date();
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const commitsByDate = new Map<string, number>();
+  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
   // Initialize all dates in the last 30 days with 0 commits
   for (let d = new Date(thirtyDaysAgo); d <= new Date(); d.setDate(d.getDate() + 1)) {
-    commitsByDate[d.toISOString().split('T')[0]] = 0;
+    commitsByDate.set(d.toISOString().split('T')[0], 0);
   }
 
   // Count commits for each date
   commits.forEach((commit) => {
     if (commit.date) {
       const date = new Date(commit.date).toISOString().split('T')[0];
-      if (commitsByDate.hasOwnProperty(date)) {
-        commitsByDate[date]++;
+      if (commitsByDate.has(date)) {
+        commitsByDate.set(date, commitsByDate.get(date)! + 1);
       }
     }
   });
 
   // Convert to array and sort by date
-  return Object.entries(commitsByDate)
+  return Array.from(commitsByDate.entries())
     .map(([date, count]) => ({ date, count }))
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
@@ -80,12 +74,9 @@ export async function getCommitData() {
     const octokit = new Octokit({ auth: token });
     const commits = await fetchAllCommits(octokit);
 
-    // console.log("Total commits fetched:", commits.length);
-
     const processedCommits = processCommitsByDate(commits);
-    // console.log("Processed commits:", processedCommits);
 
-    return processedCommits; // Return processed commit data
+    return processedCommits;
   } catch (error) {
     console.error("Error fetching commit data:", error);
     throw new Error("Failed to fetch commit data");
