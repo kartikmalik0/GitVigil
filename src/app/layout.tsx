@@ -15,7 +15,7 @@ const fontSans = FontSans({
 })
 export const metadata: Metadata = {
   title: "GitVigil",
-  description: "An open-source tool to help developers maintain their GitHub contribution streaks effortlessly",
+  description: "An open-source tool to help developers maintain their GitHub contribution streaks effortlessly.",
 };
 
 export default function RootLayout({
@@ -26,8 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <title>{"GitVigil"}</title>
+        <meta name="description" content={"An open-source tool to help developers maintain their GitHub contribution streaks effortlessly."} />
         <link rel="icon" href="/logo.svg" />
-        <meta property="og:image" content="/logo-og.png" />
+        <meta property="og:image" content={"https://utfs.io/f/67924083-d515-4314-9aaf-e0d86107dac0-g1rjny.png"} />
       </head>
       <body
         className={cn(
