@@ -29,9 +29,11 @@ async function fetchAllCommits(octokit: Octokit) {
   const user = await octokit.users.getAuthenticated();
   const repos = await octokit.paginate(octokit.repos.listForAuthenticatedUser, {
     per_page: 100,
+    sort: 'pushed',
+    direction: 'desc'
   });
 
-  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+  const thirtyDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
   const commitPromises = repos.map(repo => 
     fetchCommitsForRepo(octokit, user.data.login, repo.name, thirtyDaysAgo)
@@ -43,7 +45,7 @@ async function fetchAllCommits(octokit: Octokit) {
 
 function processCommitsByDate(commits: any[]) {
   const commitsByDate = new Map<string, number>();
-  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+  const thirtyDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
   // Initialize all dates in the last 30 days with 0 commits
   for (let d = new Date(thirtyDaysAgo); d <= new Date(); d.setDate(d.getDate() + 1)) {

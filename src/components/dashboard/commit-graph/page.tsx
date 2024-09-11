@@ -106,7 +106,7 @@ export function CommitGraph() {
         <Card>
             <CardHeader>
                 <CardTitle>GitHub Commit Activity</CardTitle>
-                <CardDescription>Last 30 days</CardDescription>
+                <CardDescription>Last 7 days</CardDescription>
             </CardHeader>
             {
                 isLoading ?
@@ -141,11 +141,11 @@ export function CommitGraph() {
                         </CardContent>
                         <CardFooter className="flex-col items-start gap-2 text-sm">
                             <div className="flex gap-2 font-medium leading-none">
-                                {trendPercentage > 0 ? "Trending up" : "Trending down"} by {Math.abs(trendPercentage).toFixed(1)}% this month
+                                {trendPercentage > 0 ? "Trending up" : "Trending down"} by {Math.abs(trendPercentage).toFixed(1)}% this week
                                 {trendPercentage > 0 ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
                             </div>
                             <div className="leading-none text-muted-foreground">
-                                Showing total commits for the last 30 days
+                                Showing total commits for the last 7 days
                             </div>
                         </CardFooter>
                     </>

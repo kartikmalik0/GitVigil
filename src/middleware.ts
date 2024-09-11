@@ -29,7 +29,6 @@ export default middleware(async (req) => {
 
     if (pathname === "/dashboard") {
         const token = await getGitHubToken();
-        console.log(token)
         if (token === "NO_TOKEN") {
             const addTokenUrl = new URL("/", origin);
             return NextResponse.redirect(addTokenUrl);

@@ -13,7 +13,6 @@ type ActionResult = {
 
 export async function upsertGithubToken(token: string): Promise<ActionResult> {
     const session = await auth()
-    console.log(session)
     if (!session || !session.user || !session.user.id) {
         throw new Error("Unauthorized")
     }
