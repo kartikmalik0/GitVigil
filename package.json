@@ -24,10 +24,12 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@tanstack/react-query": "^5.53.1",
+    "@upstash/redis": "^1.34.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "crypto": "^1.0.1",
     "framer-motion": "^11.3.30",
+    "ioredis": "^5.4.1",
     "lucide-react": "^0.427.0",
     "next": "14.2.5",
     "next-auth": "^5.0.0-beta.20",
@@ -38,6 +40,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
     "recharts": "^2.12.7",
+    "redis": "^4.7.0",
     "sharp": "^0.33.5",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.4.0",
@@ -45,6 +48,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/ioredis": "^5.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
