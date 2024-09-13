@@ -1,4 +1,3 @@
-// app/actions/getGitHubToken.ts
 "use server";
 
 import { auth } from "@/auth";

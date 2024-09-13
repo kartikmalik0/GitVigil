@@ -1,6 +1,7 @@
 import HeroDemoVideo from "./HeroDemoVideo"
 import HeroImage from "./HeroImage"
 import HeroText from "./HeroText"
+import Testimonials from "./Testimonials"
 
 const HeroSection = () => {
     return (
@@ -12,6 +13,7 @@ const HeroSection = () => {
             <div>
                 <HeroDemoVideo />
             </div>
+            <Testimonials />
         </div>
     )
 }
