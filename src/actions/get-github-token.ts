@@ -16,30 +16,30 @@ export async function getGitHubToken(): Promise<string> {
 
     const cacheKey = `git-token:${session.user.id}`;
 
-    console.time("Redis Query Time");
+    // console.time("Redis Query Time");
     const cachedToken = await redis.get<string>(cacheKey);
-    console.timeEnd("Redis Query Time");
+    // console.timeEnd("Redis Query Time");
 
     if (cachedToken) {
       return cachedToken;
     }
 
-    console.time("DB Query Time");
+    // console.time("DB Query Time");
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
       select: { accessToken: true },
     });
-    console.timeEnd("DB Query Time");
+    // console.timeEnd("DB Query Time");
 
     if (!user?.accessToken) {
       throw new Error("GitHub token not found for user");
     }
 
-    console.time("Redis Set Time");
+    // console.time("Redis Set Time");
     await redis.set(cacheKey, user.accessToken, {
       ex: TOKEN_EXPIRATION
     });
-    console.timeEnd("Redis Set Time");
+    // console.timeEnd("Redis Set Time");
 
     return user.accessToken;
   } catch (error) {

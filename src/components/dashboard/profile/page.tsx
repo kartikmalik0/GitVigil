@@ -12,7 +12,8 @@ import Link from "next/link";
 
 const Profile = async () => {
 
-    const { data } = await getUser()
+    const { data } = await getUser();
+
     // const { data: user, isLoading } = useQuery({
     //     queryKey: ["fetchUser"],
     //     queryFn: getUser
