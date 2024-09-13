@@ -8,6 +8,8 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner"
 import QueryProvider from "@/providers/QueryProvider";
 import SessionProvider from "@/providers/SessionProvider";
+import NextTopLoader from 'nextjs-toploader';
+
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -45,10 +47,11 @@ export default function RootLayout({
         >
           <SessionProvider>
             <QueryProvider>
+              <NextTopLoader color="#FFAE36" showSpinner={false} />
               <Sitenav />
               {children}
               <Footer />
-              <Toaster />
+              <Toaster duration={3000}/>
             </QueryProvider>
           </SessionProvider>
         </ThemeProvider>

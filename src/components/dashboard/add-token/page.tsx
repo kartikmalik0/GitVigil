@@ -28,9 +28,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { useEffect, useState } from "react"
 import { upsertGithubToken } from "@/actions/add-token"
 import { useSession } from "next-auth/react"
-import { useQuery } from "@tanstack/react-query"
-import { getUser } from "@/actions/get-user"
-import { getGitHubToken } from "@/actions/get-github-token"
+
 
 const formSchema = z.object({
     token: z.string().min(10, "Token is required")
@@ -66,7 +64,7 @@ export default function AddToken({ token }: { token: string }) {
             const res = await upsertGithubToken(data.token)
             setIsOpen(false)
             if (res.success) {
-                toast.success(res.message)
+                toast.success("Your token added")
             }
         } catch (error) {
             toast.error("Error in Upserting Token")

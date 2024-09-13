@@ -11,7 +11,7 @@ const Testimonials = () => {
                             className="bg-card p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
                         >
                             <p className="text-card-foreground mb-4">
-                                "GitVigil has revolutionized how I manage my GitHub contributions. It's an essential tool for any developer!"
+                                GitVigil has revolutionized how I manage my GitHub contributions. It&#39;s an essential tool for any developer!
                             </p>
                             <div className="flex items-center">
                                 <div className="w-12 h-12 bg-primary rounded-full mr-4"></div>

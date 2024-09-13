@@ -4,17 +4,19 @@ import { Button } from './ui/button'
 import { useMutation } from '@tanstack/react-query';
 import { createGitStreakRepo } from '@/actions/create-streak';
 import { GitCommitHorizontal, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 const MaintainStreakButton = () => {
     const mutation = useMutation({
         mutationFn: createGitStreakRepo,
+
         onSuccess: (data) => {
-            console.log('Streak maintained successfully:', data);
-            // You can add a toast notification here
+            if (data.success) {
+                toast.success("You maintained streak")
+            }
         },
-        onError: (error) => {
-            console.error('Error maintaining streak:', error);
-            // You can add an error toast notification here
+        onError: (error: any) => {
+            toast.error("Unable to maintain streak", error.message)
         },
     });
 
