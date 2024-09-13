@@ -3,6 +3,7 @@ import { Octokit } from "octokit";
 import { decryptToken } from "@/lib/token-encryption";
 import { getGitHubToken } from "./get-github-token";
 import { redis } from "@/lib/redis";
+import { auth } from "@/auth";
 
 interface GitHubUser {
     avatar_url: string;
@@ -12,12 +13,21 @@ interface GitHubUser {
 }
 
 export async function getUser(): Promise<{ data: GitHubUser }> {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+        throw new Error("User not authenticated");
+    }
+
+    const cacheKey = `git-user:${session.user.id}`;
+
     try {
         const encryptedToken = await getGitHubToken();
         const token = decryptToken(encryptedToken);
         const octokit: Octokit = new Octokit({ auth: token });
         console.time("Redis user");
-        const cachedUser = await redis.get("git-user");
+
+        const cachedUser = await redis.get(cacheKey);
 
         if (cachedUser) {
             // Check if cachedUser is already an object
@@ -35,9 +45,9 @@ export async function getUser(): Promise<{ data: GitHubUser }> {
                 name: data.name,
                 bio: data.bio,
                 html_url: data.html_url,
-                // We can add more propertiues here 
+                // We can add more propertiues here
             };
-            await redis.set("git-user", JSON.stringify({ data: userData }));
+            await redis.set(cacheKey, JSON.stringify({ data: userData }));
             return { data: userData };
         }
 

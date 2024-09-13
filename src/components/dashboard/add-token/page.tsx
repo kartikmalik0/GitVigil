@@ -36,14 +36,15 @@ const formSchema = z.object({
 
 export default function AddToken({ token }: { token: string }) {
     const [isOpen, setIsOpen] = useState(false)
-
-
+    const session = useSession()
 
     useEffect(() => {
-        if (token === "NO_TOKEN") {
-            setIsOpen(true)
+        if (session.status == "authenticated") {
+            if (token === "NO_TOKEN") {
+                setIsOpen(true)
+            }
         }
-    }, [token])
+    }, [token, session])
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -52,10 +53,7 @@ export default function AddToken({ token }: { token: string }) {
         },
     })
 
-    const session = useSession()
-    if (session.status == "unauthenticated") {
-        return null
-    }
+  
 
     const { isSubmitting } = form.formState
 
