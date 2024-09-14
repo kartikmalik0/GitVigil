@@ -9,8 +9,8 @@ const HeroDemoVideo = () => {
                 <BorderBeam />
                 <HeroVideoDialog
                     animationStyle="from-center"
-                    videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
-                    thumbnailSrc="https://startup-template-sage.vercel.app/hero-dark.png"
+                    videoSrc="https://utfs.io/f/OZgJSIdXCLxfZpqiaGkkdUYu4OR2XbKr9o5G6si7xgev0Z8f"
+                    thumbnailSrc="https://utfs.io/f/OZgJSIdXCLxfv8MLL1E7cJ4wM9AGrWOeQyPs1mj8t2k03Rqu"
                     thumbnailAlt="Hero Video"
                 />
             </div>
