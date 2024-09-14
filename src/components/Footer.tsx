@@ -11,13 +11,13 @@ const Footer = () => {
                         <h2 className="text-2xl font-bold">GitVigil</h2>
                         <p className="text-sm">Master your Git streak with ease. Boost productivity and manage your GitHub contributions effortlessly.</p>
                         <div className="flex space-x-4">
-                            <a href="#" className="hover:text-primary transition-colors">
+                            <a href="https://github.com/kartikmalik0" className="hover:text-primary transition-colors">
                                 <Github className="h-5 w-5" />
                             </a>
                             <a href="#" className="hover:text-primary transition-colors">
                                 <Twitter className="h-5 w-5" />
                             </a>
-                            <a href="#" className="hover:text-primary transition-colors">
+                            <a href="https://linkedin.com/kartikmalik1" className="hover:text-primary transition-colors">
                                 <Linkedin className="h-5 w-5" />
                             </a>
                             <a href="#" className="hover:text-primary transition-colors">
@@ -30,10 +30,9 @@ const Footer = () => {
                     <div>
                         <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
                         <ul className="space-y-2">
-                            <li><a href="#" className="hover:text-primary transition-colors">Home</a></li>
-                            <li><a href="#" className="hover:text-primary transition-colors">Features</a></li>
-                            <li><a href="#" className="hover:text-primary transition-colors">Pricing</a></li>
-                            <li><a href="#" className="hover:text-primary transition-colors">Blog</a></li>
+                            <li><a href="/" className="hover:text-primary transition-colors">Home</a></li>
+                            <li><a href="/dashboard" className="hover:text-primary transition-colors">Dashboard</a></li>
+                            <li><a href="/login" className="hover:text-primary transition-colors">Login</a></li>
                             <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
                         </ul>
                     </div>
@@ -42,11 +41,11 @@ const Footer = () => {
                     <div>
                         <h3 className="text-lg font-semibold mb-4">Resources</h3>
                         <ul className="space-y-2">
-                            <li><a href="#" className="hover:text-primary transition-colors">Documentation</a></li>
+                            <li><a href="https://docs.kartikmalik.tech" className="hover:text-primary transition-colors">Documentation</a></li>
                             <li><a href="#" className="hover:text-primary transition-colors">API Reference</a></li>
                             <li><a href="#" className="hover:text-primary transition-colors">Tutorials</a></li>
                             <li><a href="#" className="hover:text-primary transition-colors">FAQs</a></li>
-                            <li><a href="#" className="hover:text-primary transition-colors">Support</a></li>
+                            <li><a href="/contact" className="hover:text-primary transition-colors">Support</a></li>
                         </ul>
                     </div>
 
@@ -73,9 +72,9 @@ const Footer = () => {
                 <div className="mt-12 pt-8 border-t border-secondary-foreground/10 text-center text-sm">
                     <p>© {new Date().getFullYear()} GitVigil. All rights reserved.</p>
                     <div className="mt-2 space-x-4">
-                        <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-                        <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
-                        <a href="#" className="hover:text-primary transition-colors">Cookie Policy</a>
+                        <a href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</a>
+                        <a href="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</a>
+                        <a href="/cookie-policy" className="hover:text-primary transition-colors">Cookie Policy</a>
                     </div>
                 </div>
             </div>
