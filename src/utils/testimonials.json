@@ -1,0 +1,25 @@
+
+
+[
+    {
+      "id": 1,
+      "text": "GitVigil has revolutionized how I manage my GitHub contributions. It's an essential tool for any developer!",
+      "name": "Ahmad Raza",
+      "position": "DevOps Engineer",
+      "image": "ahmad.jpg"
+    },
+    {
+      "id": 2,
+      "text": "I've never been more organized with my open-source contributions. GitVigil is a game-changer!",
+      "name": "Kunal Panwar",
+      "position": "Front End Developer",
+      "image": "yogesh.png"
+    },
+    {
+      "id": 3,
+      "text": "As a project maintainer, GitVigil helps me keep track of all incoming contributions effortlessly.",
+      "name": "Yogesh",
+      "position": "Full Stack Developer",
+      "image": "kunal.png"
+    }
+  ]
