@@ -14,7 +14,7 @@ const HeroText = () => {
           Boost your github productivity and manage your git streak with ease.
         </p>
       </div>
-      <div className="flex gap-6 justify-center md:justify-start">
+      <div className="flex gap-6 justify-center">
         <Link href={"/dashboard"}>
           <PulsatingButton pulseColor="#FFAE36">
             Get Started For Free

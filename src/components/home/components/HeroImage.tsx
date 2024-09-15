@@ -1,14 +1,33 @@
+'use client'
+
 import React from 'react'
-import HeroSectionImage from "../../../../public/heroImage.png"
 import Image from 'next/image'
+import { useTheme } from 'next-themes'
+import HeroSectionDarkImage from "../../../../public/heroImage-dark.png"
+import HeroSectionLightImage from "../../../../public/heroImage-light.png"
+
 const HeroImage = () => {
+    const { resolvedTheme } = useTheme()
+    const [mounted, setMounted] = React.useState(false)
+
+    React.useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    if (!mounted) {
+        return null
+    }
+
+    const imageSrc = resolvedTheme === 'dark' ? HeroSectionDarkImage : HeroSectionLightImage
+
     return (
         <Image
-            src={HeroSectionImage}
+            src={imageSrc}
             height={959}
             width={1370}
-            alt='Gitvigil hero sectin Image'
-            className=' w-[38rem] hidden md:block'
+            alt='Gitvigil hero section Image'
+            className='w-[38rem] hidden md:block'
+            priority
         />
     )
 }
