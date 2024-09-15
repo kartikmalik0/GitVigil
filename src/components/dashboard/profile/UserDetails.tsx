@@ -7,7 +7,6 @@ import React from 'react'
 
 
 const UserDetails = ({ user }: { user: any }) => {
-
     return (
         <div className='mx-2 md:mx-4'>
             <h2 className='text-xl md:text-2xl p-1 font-bold'>{user.name && user.name}</h2>

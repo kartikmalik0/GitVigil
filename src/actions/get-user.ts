@@ -10,6 +10,8 @@ interface GitHubUser {
     name?: string | null;
     bio?: string | null;
     html_url: string;
+    followers: number | null
+    following : number | null
 }
 
 export async function getUser(): Promise<{ data: GitHubUser }> {
@@ -45,6 +47,8 @@ export async function getUser(): Promise<{ data: GitHubUser }> {
                 name: data.name,
                 bio: data.bio,
                 html_url: data.html_url,
+                followers: data.followers,
+                following: data.following
                 // We can add more propertiues here
             };
             await redis.set(cacheKey, JSON.stringify({ data: userData }));
