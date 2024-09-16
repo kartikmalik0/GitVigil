@@ -23,6 +23,8 @@ interface Testimonial {
 }
 
 const Testimonials = () => {
+
+  // we are mapping here the tes
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
