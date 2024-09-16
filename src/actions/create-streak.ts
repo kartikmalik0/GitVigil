@@ -1,15 +1,34 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 import { Octokit } from "octokit";
-import crypto from "crypto";
 import { getGitHubToken } from "./get-github-token";
-import { decryptToken } from "@/lib/token-encryption";
+import { decryptToken, generateRandomContent } from "@/lib/token-encryption";
+import prisma from "@/lib/prisma";
 
-export async function createGitStreakRepo() {
+export async function createGitStreakRepo(userId?: string) {
+    if (!userId) {
+        console.log('No userId provided, using default value or skipping.');
+        // Perform your logic without userId here
+      }
     try {
-        const token = await getGitHubToken();
-        const decryptGitToken = decryptToken(token);
+        let token;
+        if (userId) {
+            // If userId is provided, fetch the token from the database
+            const user = await prisma.user.findUnique({
+                where: { id: userId },
+                select: { accessToken: true },
+            });
+            if (!user || !user.accessToken) {
+                throw new Error("User not found or GitHub token not available");
+            }
+            token = user.accessToken;
+        } else {
+            // If no userId, use the getGitHubToken function (for non-scheduled calls(
+            token = await getGitHubToken();
+        }
+
+        const decryptGitToken = await decryptToken(token);
         const octokit = new Octokit({ auth: decryptGitToken });
 
         const repoName = "git-streak-maintain";
@@ -39,8 +58,10 @@ export async function createGitStreakRepo() {
 
         // Create or update the streak file
         const date = new Date();
-        const commitMessage = `Update streak: ${date.toISOString().split("T")[0]}`;
-        const newContent = generateRandomContent();
+        const commitMessage = `Update streak: ${
+            date.toISOString().split("T")[0]
+        }`;
+        const newContent =  generateRandomContent();
 
         // Check if the file already exists
         let existingFile;
@@ -55,7 +76,7 @@ export async function createGitStreakRepo() {
             if (error.status !== 404) throw error;
         }
 
-        if (existingFile && 'sha' in existingFile) {
+        if (existingFile && "sha" in existingFile) {
             // Update existing file
             await octokit.rest.repos.createOrUpdateFileContents({
                 owner: user.login,
@@ -76,9 +97,7 @@ export async function createGitStreakRepo() {
             });
         }
 
-        // console.log(`File ${fileName} updated in ${repoName} with message: ${commitMessage}`);
-
-        revalidatePath("/dashboard");
+        // revalidatePath("/dashboard");
         return {
             success: true,
             message: "Git streak repository updated successfully.",
@@ -87,13 +106,15 @@ export async function createGitStreakRepo() {
         console.error("Error managing GitHub repository:", error);
         return {
             success: false,
-            message: error.message || "An error occurred while managing the repository.",
+            message:
+                error.message ||
+                "An error occurred while managing the repository.",
         };
     }
 }
 
-function generateRandomContent() {
-    const randomString = crypto.randomBytes(16).toString("hex");
-    const date = new Date().toISOString();
-    return `Streak updated on: ${date}\nRandom content: ${randomString}`;
-}
+// function generateRandomContent() {
+//     const randomString = crypto.randomBytes(16).toString("hex");
+//     const date = new Date().toISOString();
+//     return `Streak updated on: ${date}\nRandom content: ${randomString}`;
+// }

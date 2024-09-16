@@ -21,7 +21,7 @@ const MaintainStreakButton = () => {
     });
 
     const handleMaintainStreak = () => {
-        mutation.mutate();
+        mutation.mutate("");
     };
     return (
         <Button

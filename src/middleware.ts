@@ -1,8 +1,18 @@
 import { NextResponse } from "next/server";
 import { auth as middleware } from "@/auth";
 import { getGitHubToken } from "./actions/get-github-token";
+import { startScheduledCommits } from "./lib/schedulingService";
 
+let isSchedulerStarted = false
 export default middleware(async (req) => {
+
+
+    if (!isSchedulerStarted) {
+        startScheduledCommits().catch(console.error);
+        isSchedulerStarted = true;
+        console.log('Commit scheduler started');
+      }
+
     const allowedPaths = [
         "/",
         "/login",

@@ -61,3 +61,16 @@ model VerificationToken {
 
   @@id([identifier, token])
 }
+
+model CommitSchedule {
+  id        String   @id @default(cuid())
+  userId    String
+  frequency String
+  dayOfWeek Int?
+  time      String
+  customDate DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, frequency])
+}
