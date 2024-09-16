@@ -3,12 +3,28 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
   const serverTime = new Date(); // Get the current server time
 
-  // Format the time in 'HH:mm' format using local time
+  // Get the day of the week, month, day, year, time (HH:mm:ss) in local time
+  const dayOfWeek = serverTime.toLocaleString('en-US', { weekday: 'short' });
+  const month = serverTime.toLocaleString('en-US', { month: 'short' });
+  const day = serverTime.getDate().toString().padStart(2, '0');
+  const year = serverTime.getFullYear();
   const hours = serverTime.getHours().toString().padStart(2, '0');
   const minutes = serverTime.getMinutes().toString().padStart(2, '0');
-  const formattedTime = `${hours}:${minutes}`; // Time in 'HH:mm'
+  const seconds = serverTime.getSeconds().toString().padStart(2, '0');
 
-  console.log(`Server time (local): ${formattedTime}`); // Log the formatted time
+  // Get the time zone abbreviation automatically
+  const timeZone = new Intl.DateTimeFormat('en-US', {
+    timeZoneName: 'short',
+  })
+    .formatToParts(serverTime)
+    .find((part) => part.type === 'timeZoneName')?.value || '';
 
-  return NextResponse.json({ time: formattedTime }, { status: 200 });
+  // Construct the formatted date string: Mon Sep 16 23:20:40 IST 2024
+  const formattedDate = `${dayOfWeek} ${month} ${day} ${hours}:${minutes}:${seconds} ${timeZone} ${year}`;
+
+  console.log(`Formatted server time: ${formattedDate}`);
+
+  return NextResponse.json({
+    serverTime: formattedDate,
+  }, { status: 200 });
 }
