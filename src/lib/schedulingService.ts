@@ -1,4 +1,3 @@
-"use server"
 import { createGitStreakRepo } from "@/actions/create-streak";
 import prisma from "./prisma";
 

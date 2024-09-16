@@ -1,0 +1,6 @@
+{
+    "crons": [{
+      "path": "/api/run-scheduled-commits",
+      "schedule": "0 10 * * *"
+    }]
+}
