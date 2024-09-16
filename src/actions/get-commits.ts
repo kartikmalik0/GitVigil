@@ -71,11 +71,10 @@ function processCommitsByDate(commits: any[]) {
 export async function getCommitData() {
   try {
     const encryptedToken = await getGitHubToken();
-    const token = decryptToken(encryptedToken);
+    const token = await decryptToken(encryptedToken);
 
     const octokit = new Octokit({ auth: token });
     const commits = await fetchAllCommits(octokit);
-
     const processedCommits = processCommitsByDate(commits);
 
     return processedCommits;

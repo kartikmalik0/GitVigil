@@ -25,7 +25,7 @@ export async function getUser(): Promise<{ data: GitHubUser }> {
 
     try {
         const encryptedToken = await getGitHubToken();
-        const token = decryptToken(encryptedToken);
+        const token = await decryptToken(encryptedToken);
         const octokit: Octokit = new Octokit({ auth: token });
         console.time("Redis user");
 
