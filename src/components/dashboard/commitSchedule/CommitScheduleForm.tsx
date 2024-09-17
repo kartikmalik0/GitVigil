@@ -8,8 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { saveCommitSchedule } from '@/actions/commit-schedule';
 import { toast } from 'sonner';
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 
 export default function CommitScheduleForm() {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,9 +43,7 @@ export default function CommitScheduleForm() {
     try {
       let submissionData = { ...data };
       if (frequency === 'custom' && submissionData.customDate) {
-        // customDate is already a Date object, so we just need to extract the time
-        submissionData.time = submissionData.customDate.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
-        
+        submissionData.time = format(submissionData.customDate, 'HH:mm');
       }
       const result = await saveCommitSchedule({ ...submissionData, timeZone: userTimeZone });
       if (result.success) {
@@ -122,15 +124,45 @@ export default function CommitScheduleForm() {
               name="customDate"
               control={control}
               render={({ field }) => (
-                <Input
-                  type="datetime-local"
-                  {...field}
-                  value={field.value instanceof Date ? field.value.toISOString().slice(0, 16) : ''}
-                  onChange={(e) => {
-                    const date = new Date(e.target.value);
-                    field.onChange(isNaN(date.getTime()) ? '' : date);
-                  }}
-                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className={`w-full justify-start text-left font-normal ${!field.value && "text-muted-foreground"}`}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {field.value ? format(field.value, "PPP HH:mm") : <span>Pick a date and time</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={(date) => {
+                        if (date) {
+                          const currentDate = field.value || new Date();
+                          date.setHours(currentDate.getHours());
+                          date.setMinutes(currentDate.getMinutes());
+                          field.onChange(date);
+                        }
+                      }}
+                      initialFocus
+                    />
+                    <div className="p-3 border-t">
+                      <Input
+                        type="time"
+                        value={field.value ? format(field.value, "HH:mm") : ""}
+                        onChange={(e) => {
+                          const [hours, minutes] = e.target.value.split(':').map(Number);
+                          const newDate = new Date(field.value || new Date());
+                          newDate.setHours(hours);
+                          newDate.setMinutes(minutes);
+                          field.onChange(newDate);
+                        }}
+                      />
+                    </div>
+                  </PopoverContent>
+                </Popover>
               )}
             />
           )}
