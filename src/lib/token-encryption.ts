@@ -134,3 +134,9 @@ export function generateRandomContent(): string {
   const date = new Date().toISOString();
   return `Streak updated on: ${date}\nRandom content: ${randomString}`;
 }
+
+// export function generateRandomContent() {
+//     const randomString = crypto.randomBytes(16).toString("hex");
+//     const date = new Date().toISOString();
+//     return `Streak updated on: ${date}\nRandom content: ${randomString}`;
+// }

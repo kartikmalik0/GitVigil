@@ -5,7 +5,7 @@ import { CommitSchedule, CommitScheduleSchema } from '@/types/commitSchedule'
 import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
 
-export async function saveCommitSchedule(data: CommitSchedule | null) {
+export async function saveCommitSchedule(data: CommitSchedule & { timeZone: string }) {
   const validatedData = CommitScheduleSchema.parse(data);
   const session = await auth();
 
@@ -17,8 +17,9 @@ export async function saveCommitSchedule(data: CommitSchedule | null) {
 
   await prisma.commitSchedule.upsert({
     where: { userId_frequency: { userId, frequency: validatedData.frequency } },
-    update: validatedData,
-    create: { ...validatedData, userId },
+    update: { ...validatedData, timeZone: data.timeZone },
+    create: { ...validatedData, userId, timeZone: data.timeZone },
   });
 
+  revalidatePath('/dashboard'); // Adjust this path as needed
 }

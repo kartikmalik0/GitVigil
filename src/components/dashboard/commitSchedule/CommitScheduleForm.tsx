@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CommitScheduleSchema, CommitSchedule } from '@/types/commitSchedule';
@@ -11,6 +11,12 @@ import { saveCommitSchedule } from '@/actions/commit-schedule';
 
 export default function CommitScheduleForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userTimeZone, setUserTimeZone] = useState('');
+
+  useEffect(() => {
+    setUserTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone);
+  }, []);
+
   const { control, handleSubmit, watch, formState: { errors } } = useForm<CommitSchedule>({
     resolver: zodResolver(CommitScheduleSchema),
     defaultValues: {
@@ -24,7 +30,7 @@ export default function CommitScheduleForm() {
   const onSubmit = async (data: CommitSchedule) => {
     setIsSubmitting(true);
     try {
-      await saveCommitSchedule(data);
+      await saveCommitSchedule({ ...data, timeZone: userTimeZone });      
       // Handle success (e.g., show a success message)
     } catch (error) {
       // Handle error (e.g., show an error message)

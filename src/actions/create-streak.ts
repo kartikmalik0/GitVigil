@@ -31,7 +31,7 @@ export async function createGitStreakRepo(userId?: string) {
         const decryptGitToken = await decryptToken(token);
         const octokit = new Octokit({ auth: decryptGitToken });
 
-        const repoName = "git-streak-maintain";
+        const repoName = "git-streak-maintain-2";
         const fileName = "streak.txt";
         const { data: user } = await octokit.rest.users.getAuthenticated();
 
@@ -113,8 +113,4 @@ export async function createGitStreakRepo(userId?: string) {
     }
 }
 
-// function generateRandomContent() {
-//     const randomString = crypto.randomBytes(16).toString("hex");
-//     const date = new Date().toISOString();
-//     return `Streak updated on: ${date}\nRandom content: ${randomString}`;
-// }
+

@@ -28,3 +28,6 @@ export async function GET(req: NextRequest) {
     serverTime: formattedDate,
   }, { status: 200 });
 }
+
+
+// "Mon Sep 16 17:57:19 UTC 2024"
