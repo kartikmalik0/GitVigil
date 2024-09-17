@@ -23,22 +23,34 @@ export async function checkAndRunScheduledCommits() {
 
     try {
         const schedules = await prisma.commitSchedule.findMany();
+        console.log(schedules);
         console.log(`Found ${schedules.length} schedules`);
 
         for (const schedule of schedules) {
-            console.log(`Checking schedule for user ${schedule.userId}:`, schedule);
+            console.log(
+                `Checking schedule for user ${schedule.userId}:`,
+                schedule
+            );
 
             try {
                 const shouldRun = shouldRunCommit(schedule, now);
-                console.log(`Should run commit for user ${schedule.userId}:`, shouldRun);
+                console.log(
+                    `Should run commit for user ${schedule.userId}:`,
+                    shouldRun
+                );
 
                 if (shouldRun) {
-                    console.log(`Attempting to run commit for user ${schedule.userId}`);
+                    console.log(
+                        `Attempting to run commit for user ${schedule.userId}`
+                    );
                     await createGitStreakRepo(schedule.userId);
                     console.log(`Commit completed for user ${schedule.userId}`);
                 }
             } catch (error) {
-                console.error(`Error processing schedule for user ${schedule.userId}:`, error);
+                console.error(
+                    `Error processing schedule for user ${schedule.userId}:`,
+                    error
+                );
             }
         }
     } catch (error) {
@@ -51,7 +63,9 @@ export async function checkAndRunScheduledCommits() {
 function shouldRunCommit(schedule: any, now: Date): boolean {
     console.log(`Evaluating schedule:`, schedule);
 
-    const userTime = new Date(now.toLocaleString("en-US", { timeZone: schedule.timeZone }));
+    const userTime = new Date(
+        now.toLocaleString("en-US", { timeZone: schedule.timeZone })
+    );
     const [hours, minutes] = schedule.time.split(":").map(Number);
     const scheduleDate = new Date(userTime);
     scheduleDate.setHours(hours, minutes, 0, 0);
@@ -69,14 +83,29 @@ function shouldRunCommit(schedule: any, now: Date): boolean {
             shouldRun = isWithinTimeWindow;
             break;
         case "weekly":
-            shouldRun = userTime.getDay() === schedule.dayOfWeek && isWithinTimeWindow;
+            shouldRun =
+                userTime.getDay() === schedule.dayOfWeek && isWithinTimeWindow;
             break;
         case "weekend":
-            shouldRun = (userTime.getDay() === 0 || userTime.getDay() === 6) && isWithinTimeWindow;
+            shouldRun =
+                (userTime.getDay() === 0 || userTime.getDay() === 6) &&
+                isWithinTimeWindow;
             break;
         case "custom":
-            const customDate = new Date(schedule.customDate);
-            shouldRun = userTime.getTime() >= customDate.getTime() && userTime.getTime() < customDate.getTime() + 60000; // Within 1 minute of scheduled time
+            const scheduledDateTime = new Date(schedule.customDate);
+            const [scheduleHours, scheduleMinutes] = schedule.time
+                .split(":")
+                .map(Number);
+            scheduledDateTime.setHours(scheduleHours, scheduleMinutes, 0, 0);
+
+            const timeDiff = Math.abs(
+                userTime.getTime() - scheduledDateTime.getTime()
+            );
+            shouldRun = timeDiff <= 60000; // Within 1 minute
+
+            console.log(
+                `Custom schedule datetime: ${scheduledDateTime.toISOString()}, Should run: ${shouldRun}`
+            );
             break;
     }
 
