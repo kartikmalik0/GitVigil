@@ -5,12 +5,9 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 export async function GET(request: NextRequest) {
-    console.log("GET request received for /api/scheduledCommits");
 
     try {
-        console.log("Starting checkAndRunScheduledCommits");
         await checkAndRunScheduledCommits();
-        console.log("checkAndRunScheduledCommits completed successfully");
 
         return new NextResponse(
             JSON.stringify({
