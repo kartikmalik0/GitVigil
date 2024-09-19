@@ -5,6 +5,7 @@ import { Octokit } from "octokit";
 import { getGitHubToken } from "./get-github-token";
 import { decryptToken, generateRandomContent } from "@/lib/token-encryption";
 import prisma from "@/lib/prisma";
+import { generateEmail } from "./send-email";
 
 export async function createGitStreakRepo(userId?: string) {
     if (!userId) {
@@ -34,7 +35,16 @@ export async function createGitStreakRepo(userId?: string) {
         const repoName = "git-streak-maintain-2";
         const fileName = "streak.txt";
         const { data: user } = await octokit.rest.users.getAuthenticated();
+        const { data: emails } = await octokit.rest.users.listEmailsForAuthenticatedUser();
 
+        const primaryEmail = emails.find((email: any) => email.primary && email.verified);
+
+        if (!primaryEmail) {
+            throw new Error("Primary verified email not found for the user.");
+        }
+        
+        console.log("Primary email:", primaryEmail.email);
+        
         // Check if the repository already exists
         try {
             await octokit.rest.repos.get({
@@ -96,7 +106,7 @@ export async function createGitStreakRepo(userId?: string) {
                 content: Buffer.from(newContent).toString("base64"),
             });
         }
-
+        await generateEmail(primaryEmail.email)
         // revalidatePath("/dashboard");
         return {
             success: true,

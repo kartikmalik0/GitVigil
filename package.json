@@ -42,6 +42,7 @@
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^3.6.15",
     "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.15",
     "octokit": "^4.0.2",
     "react": "^18",
     "react-day-picker": "^8.10.1",
@@ -58,6 +59,7 @@
   "devDependencies": {
     "@types/ioredis": "^5.0.0",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.16",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
