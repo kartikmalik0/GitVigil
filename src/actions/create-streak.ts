@@ -42,9 +42,7 @@ export async function createGitStreakRepo(userId?: string) {
         if (!primaryEmail) {
             throw new Error("Primary verified email not found for the user.");
         }
-        
-        console.log("Primary email:", primaryEmail.email);
-        
+                
         // Check if the repository already exists
         try {
             await octokit.rest.repos.get({
