@@ -32,8 +32,6 @@ You'll need to create a `.env` file in the root of your project and add the foll
 AUTH_SECRET="your_auth_secret_here"
 AUTH_GITHUB_ID="your_github_oauth_id"
 AUTH_GITHUB_SECRET="your_github_oauth_secret"
-AUTH_GOOGLE_ID="your_google_oauth_id"
-AUTH_GOOGLE_SECRET="your_google_oauth_secret"
 GITHUB_TOKEN="your_github_token_here"
 
 # Database URLs
