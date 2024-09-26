@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#api testing
+
+/src/app/api/run-scheduled-commits-test

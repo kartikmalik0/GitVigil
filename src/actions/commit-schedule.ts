@@ -6,7 +6,6 @@ import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
 
 export async function saveCommitSchedule(data: CommitSchedule & { timeZone: string }) {
-  console.log("Received data:", data);
   try {
     const validatedData = CommitScheduleSchema.parse(data);
     const session = await auth();
@@ -28,7 +27,6 @@ export async function saveCommitSchedule(data: CommitSchedule & { timeZone: stri
       create: { ...validatedData, userId, timeZone: data.timeZone },
     });
 
-    console.log("Upsert result:", result);
 
     revalidatePath('/dashboard'); // Adjust this path as needed
     return { success: true };

@@ -69,12 +69,11 @@ export async function getCurrentDayCommitData() {
   try {
     const encryptedToken = await getGitHubToken();
     const token = await decryptToken(encryptedToken);
-    console.log(token)
     const octokit = new Octokit({ auth: token });
     
     // Check rate limit before making requests
     const { data: rateLimit } = await octokit.rest.rateLimit.get();
-    console.log("API Rate Limit:", rateLimit);
+    // console.log("API Rate Limit:", rateLimit);
     
     if (rateLimit.resources.core.remaining < 100) {
       throw new Error("GitHub API rate limit is too low to proceed safely");
