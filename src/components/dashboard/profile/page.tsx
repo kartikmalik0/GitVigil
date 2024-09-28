@@ -9,6 +9,7 @@ import UserDetails from './UserDetails';
 import MaintainStreakButton from '@/components/MaintainStreakButton';
 import { getUser } from '@/actions/get-user';
 import Link from "next/link";
+import CommitScheduleForm from "../commitSchedule/CommitScheduleForm";
 
 const Profile = async () => {
 
@@ -34,12 +35,13 @@ const Profile = async () => {
                 </div>
                 <div className='flex flex-col md:flex-row gap-2'>
                     <MaintainStreakButton />
-                    <Button variant="outline" size={"lg"} className='gap-2 hidden md:flex' asChild>
+                    <CommitScheduleForm />
+                    {/* <Button variant="outline" size={"lg"} className='gap-2 hidden md:flex' asChild>
                         <Link href={"https://github.com/kartikmalik0/GitVigil.git"} target="_blank">
                             <Star />
                             Star on Github
                         </Link>
-                    </Button>
+                    </Button> */}
                 </div>
             </CardContent>
         </Card>

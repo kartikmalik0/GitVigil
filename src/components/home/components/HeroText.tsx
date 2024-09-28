@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import PulsatingButton from "@/components/ui/pulse-button"
+import { Star } from "lucide-react"
 import Link from "next/link"
 
 const HeroText = () => {
@@ -20,8 +21,11 @@ const HeroText = () => {
             Get Started For Free
           </PulsatingButton>
         </Link>
-        <Button variant={"outline"}>
-          Demo
+        <Button variant="outline" size={"lg"} className='gap-2 hidden md:flex' asChild>
+          <Link href={"https://github.com/kartikmalik0/GitVigil.git"} target="_blank">
+            <Star />
+            Star on Github
+          </Link>
         </Button>
       </div>
     </div>
