@@ -13,7 +13,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { saveCommitSchedule } from '@/actions/commit-schedule';
 import { toast } from 'sonner';
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Clock } from "lucide-react";
 
 export default function CommitScheduleForm() {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +62,10 @@ export default function CommitScheduleForm() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Schedule Commit</Button>
+        <Button variant="outline" size={"lg"} className='gap-2'>
+          <Clock className='h-4 w-4'/>
+          Schedule Commit
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

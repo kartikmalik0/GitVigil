@@ -77,7 +77,7 @@ export default function AddToken({ token }: { token: string }) {
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <DialogTrigger asChild>
-                            <Button className="gap-1">
+                            <Button className="gap-1" size={"sm"}>
                                 <GlobeLock className="h-5 w-5" />
                                 {token === "NO_TOKEN" ? "Add Token" : "Update Token"}
                             </Button>
