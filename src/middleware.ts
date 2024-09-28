@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { auth as middleware } from "@/auth";
 import { getGitHubToken } from "./actions/get-github-token";
 
-let isSchedulerStarted = false
 export default middleware(async (req) => {
 
 
