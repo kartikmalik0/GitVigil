@@ -15,10 +15,6 @@ export default auth((req) => {
         return NextResponse.redirect(new URL("/login", origin));
     }
 
-    if (req.auth && pathname === "/login") {
-        return NextResponse.redirect(new URL("/dashboard", origin));
-    }
-
     return NextResponse.next();
 });
 
