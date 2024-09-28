@@ -46,6 +46,9 @@ ENCRYPTION_IV="your_encryption_iv"
 # Redis Token and Url
 REDIS_TOKEN= "your_redis_token"
 REDIS_URL= "https://destined-shrimp-62901.upstash.io"  
+ 
+#Resend token
+RESEND_TOKEN= "re_TtLNqShx_PG185CkTbLefiYbf"
 ```
 
 Replace the placeholder values (`your_auth_secret_here`, `your_github_oauth_id`, etc.) with your actual credentials.
