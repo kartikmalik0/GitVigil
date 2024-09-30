@@ -8,11 +8,19 @@ import LoginImage from "@/assets/images/login.png"
 import Image from 'next/image'
 import { Github } from 'lucide-react'
 import Link from 'next/link'
-// import { signIn } from '@/auth'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 
 const Login = () => {
+
+    const router = useRouter()
+    const session = useSession()
+    if (session.status === "authenticated") {
+        router.push("/")
+        return null
+    }
+
     return (
         <MaxWidhtWrapper className='flex items-center justify-around'>
             <div className='space-y-16'>
@@ -26,10 +34,6 @@ const Login = () => {
                     </p>
                 </div>
                 <div className='flex w-full flex-col gap-3 items-center '>
-                    {/* <form  action={async () => {
-                        "use server"
-                        await signIn()
-                    }}> */}
                     <Button
                         onClick={() => signIn("github", {
                             callbackUrl: "/"
@@ -38,7 +42,6 @@ const Login = () => {
                         <Github />
                         Login With GitHub
                     </Button>
-                    {/* </form> */}
                     <div className='flex w-full  max-w-[22rem] items-center justify-between'>
                         <div className='h-[1px] w-[80%] bg-subLighter' />
                         <span className='mx-3'>
