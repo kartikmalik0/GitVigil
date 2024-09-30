@@ -7,8 +7,8 @@ import { redirect } from 'next/navigation'
 
 const Dashboard = async () => {
 
-    const session = await auth() || redirect("/login")
-    const token = await getGitHubToken() !== "NO_TOKEN" || redirect("/")
+     await auth() || redirect("/login")
+     await getGitHubToken() !== "NO_TOKEN" || redirect("/")
 
     return (
         <MaxWidhtWrapper>
