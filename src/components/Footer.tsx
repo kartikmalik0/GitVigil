@@ -1,9 +1,11 @@
 import { Facebook, Github, Linkedin, Twitter } from 'lucide-react'
 import React from 'react'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
 
 const Footer = () => {
     return (
-        <footer className="text-secondary-foreground py-12 border-t">
+        <footer className="text-secondary-foreground bg-background py-12 border-t">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* Company Info */}
@@ -54,17 +56,16 @@ const Footer = () => {
                         <h3 className="text-lg font-semibold mb-4">Stay Updated</h3>
                         <p className="text-sm mb-4">Subscribe to our newsletter for the latest updates and tips.</p>
                         <form className="flex">
-                            <input
+                            <Input
                                 type="email"
                                 placeholder="Enter your email"
-                                className="flex-grow px-3 py-2 bg-background text-foreground rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary"
+                                className="flex-grow px-3 py-2 bg-background text-foreground rounded-r-[0px] focus:outline-none focus:ring-0"
                             />
-                            <button
-                                type="submit"
-                                className="bg-primary text-primary-foreground px-4 py-2 rounded-r-md hover:bg-primary/90 transition-colors"
+                            <Button
+                                className="bg-primary text-primary-foreground px-4 py-2 rounded-r-md rounded-l-[0px] hover:bg-primary/90 transition-colors"
                             >
                                 Subscribe
-                            </button>
+                            </Button>
                         </form>
                     </div>
                 </div>
