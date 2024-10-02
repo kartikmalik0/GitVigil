@@ -7,7 +7,7 @@ const HeroText = () => {
   return (
     <div className="space-y-8 w-full md:w-fit">
       <div className=" flex flex-col gap-4 text-center">
-        <h1 className="leading-[3rem]">
+        <h1 className="leading-[2rem] md:leading-[3rem]">
           Master Your <br />
           Git Streak
         </h1>
@@ -18,10 +18,10 @@ const HeroText = () => {
       <div className="flex gap-6 justify-center">
         <Link href={"/dashboard"}>
           <PulsatingButton pulseColor="#FFAE36">
-            Get Started For Free
+            Get Started
           </PulsatingButton>
         </Link>
-        <Button variant="outline" size={"lg"} className='gap-2 hidden md:flex' asChild>
+        <Button variant="outline" size={"lg"} className='gap-2' asChild>
           <Link href={"https://github.com/kartikmalik0/GitVigil.git"} target="_blank">
             <Star />
             Star on Github

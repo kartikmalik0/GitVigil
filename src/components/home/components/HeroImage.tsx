@@ -26,7 +26,7 @@ const HeroImage = () => {
             height={959}
             width={1370}
             alt='Gitvigil hero section Image'
-            className='w-[38rem] hidden md:block'
+            className='lg:w-[38rem] md:w-[30rem] hidden md:block'
             priority
         />
     )

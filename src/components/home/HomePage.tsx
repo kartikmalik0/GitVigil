@@ -2,8 +2,8 @@ import HeroSection from "./components/HeroSection"
 
 const HomePage = () => {
   return (
-    <div className="">
-      <HeroSection/>
+    <div>
+      <HeroSection />
     </div>
   )
 }
