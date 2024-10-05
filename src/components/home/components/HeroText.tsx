@@ -11,7 +11,7 @@ const HeroText = () => {
           Master Your <br />
           Git Streak
         </h1>
-        <p className="text-subHeading max-w-[490px]">
+        <p className="text-subHeading max-w-[490px] mx-auto">
           Supercharge your GitHub profile and maintain your streak with ease. Master version control like a pro.
         </p>
       </div>
