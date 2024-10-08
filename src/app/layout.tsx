@@ -9,7 +9,7 @@ import { Toaster } from "@/components/ui/sonner"
 import QueryProvider from "@/providers/QueryProvider";
 import SessionProvider from "@/providers/SessionProvider";
 import NextTopLoader from 'nextjs-toploader';
-
+import { Analytics } from "@vercel/analytics/react"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -50,8 +50,9 @@ export default function RootLayout({
               <NextTopLoader color="#FFAE36" showSpinner={false} />
               <Sitenav />
               {children}
+              <Analytics />
               <Footer />
-              <Toaster duration={3000}/>
+              <Toaster duration={3000} />
             </QueryProvider>
           </SessionProvider>
         </ThemeProvider>
