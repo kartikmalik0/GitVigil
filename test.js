@@ -62,7 +62,7 @@ export default function () {
     const url = "https://gitvgil-get-commit.kartik20044.workers.dev";
     const payload = JSON.stringify({
         encryptedToken:
-            "f0855ee235524d370ab2e22fbd56c0c9e3e6bccf7735b0fe8c270c36ebe9a659e770c44854dc53b21516a5edebd7002ed578cd588f4af62a4f321b79ba8d93caf1003e22ab98e8e1f5aa8ec203496a3e211d22f95ee0ec2d11827bc17cc6ee79", // Replace with your actual encrypted token
+            "f0855ee235524d370ab2e22fbd56c0c9e3e6bccf7735b0fe8c270c36ebe9a659e770c44854dc53b21516a5edebd7002ed578cd588f4af62a4f321b79ba8d93caf1003e22ab98e8e79", // Replace with your actual encrypted token
     });
 
     const params = {
